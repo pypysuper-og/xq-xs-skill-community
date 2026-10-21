@@ -4,4 +4,5 @@
 *.json text eol=lf
 *.py text eol=lf
 *.xs text eol=lf
+*.png binary
 LICENSE text eol=lf

@@ -27,18 +27,20 @@ python scripts/validate_repository.py
 另以環境提供的 skill-creator `quick_validate.py` 檢查入口，結果為 `Skill is valid!`；此工具在 Windows 使用 `python -X utf8` 執行。UI YAML 另經 YAML parser 讀取，確認各欄位為字串、提示含 skill 名稱，短說明為 36 字。此 parser 僅供維護驗證，不是工具執行相依。
 
 ```text
-python scripts/build_package.py
+python scripts/build_package.py --output dist/xq-xs-community-v0.1.0.zip
 ```
 
-發佈檔案為 `dist/xq-xs.zip`；旁附 SHA-256 檔，摘要以實際建置檔為準。建置輸出不納入 source commit，可由已提交來源重建。
+v0.1.0 發佈檔案為 `dist/xq-xs-community-v0.1.0.zip`；旁附 SHA-256 檔，摘要以實際建置檔為準。建置輸出不納入 source commit，可由已提交來源重建。
 
-本次 ZIP 為 **143,884 bytes、22 個檔案**；逐一比對封裝內容與當前來源相同，CRC 與 SHA-256 核對通過。本次產物的 SHA-256：
+本次 ZIP 為 **144,117 bytes、22 個檔案**；逐一比對封裝內容與當前來源相同，CRC 與 SHA-256 核對通過，並實際解壓執行其中的離線查找工具。本次產物的 SHA-256：
 
 ```text
-a76b6adb583bc1f19e914224800284f1ebb63bc2b55f2042713cf5e218882e17
+0615be1814d0969421e2ba927866c48c131d224a08d34921dd9d66d9cc81dc52
 ```
 
 來源與 ZIP 均檢查私人機器路徑；另掃描常見 access token、private key 與 URL 內嵌憑證模式，未命中。這是對本次輸出的檢查結果，不是完整秘密資訊偵測的保證。
+
+README 經 GitHub Markdown API 渲染，檢查標題、表格、封面與徽章排列；另以本機 headless Chrome 檢視桌機版面。封面 PNG 的格式、尺寸與檔案身分已核對，生成方式與完整提示見 [封面說明](../assets/README.md)。
 
 ## 官方來源查證
 
@@ -55,6 +57,7 @@ a76b6adb583bc1f19e914224800284f1ebb63bc2b55f2042713cf5e218882e17
 - 驗證雷達通知設定、模擬成交、帳戶庫存或實盤行為。
 - 在其他作業系統或 Python 3.10 上執行工具測試。
 - 安裝到個人 agent skills 目錄，或進行模型端的自然選用／多輪使用評估。
-- 遠端發布、push 或建立 release。
+
+本紀錄描述本地套件與工具的驗證。GitHub 發佈狀態請查 [社群專案 Releases](https://github.com/pypysuper-og/xq-xs-skill-community/releases)，與 XQ runtime 驗證分開判斷。
 
 因此可以判定本版本的本地套件與查找工具已依上述範圍檢查，不能據此宣稱 XS 程式可編譯、策略已通過回測、agent 使用情境皆已驗證或可直接實盤。
