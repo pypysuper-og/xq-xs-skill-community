@@ -1,0 +1,4 @@
+interface:
+  display_name: "XQ／XS 腳本"
+  short_description: "整合官方來源，撰寫、審查與除錯 XQ 的 XS 腳本、資料引用及交易邏輯"
+  default_prompt: "使用 $xq-xs 協助處理 XQ 的 XS 腳本，查證官方語義並說明實際驗證範圍。"
