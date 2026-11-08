@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "assembled_on": "2026-11-09",
+  "scope": "The 11 entries visible on the supplied XQ programming-language category page; not a complete site crawl or a current compiler specification.",
+  "category_url": "https://www.xq.com.tw/xstrader/category/程式語法/",
+  "records": [
+    {"name": "XQ量化交易平台學習地圖", "kind": "article", "published_on": "2016-03-03", "categories": ["學習地圖", "基礎語法", "編輯器"], "url": "https://www.xq.com.tw/xstrader/xslearnmap/"},
+    {"name": "走進網友的交易室1-使用XS打造多方警示策略的步驟", "kind": "article", "published_on": "2022-10-24", "categories": ["警示", "策略雷達", "選股", "進出場條件"], "url": "https://www.xq.com.tw/xstrader/走進網友的交易室1-使用xs打造多方策略的步驟/"},
+    {"name": "走進網友的交易室2-使用XS打造空方警示策略的步驟", "kind": "article", "published_on": "2022-10-21", "categories": ["警示", "策略雷達", "空方", "條件組合"], "url": "https://www.xq.com.tw/xstrader/走進網友的交易室2-使用xs打造空方警示策略的步驟/"},
+    {"name": "常用的語法匯總", "kind": "article", "published_on": "2021-07-07", "categories": ["常用語法", "量價", "自訂函數", "狀態", "單位"], "url": "https://www.xq.com.tw/xstrader/常用的語法匯總/"},
+    {"name": "網格交易介紹", "kind": "article", "published_on": "2021-04-29", "categories": ["交易", "網格", "部位", "邊界"], "url": "https://www.xq.com.tw/xstrader/網格交易介紹/"},
+    {"name": "XQ交易語法專章", "kind": "article", "published_on": "2021-03-17", "categories": ["交易", "SetPosition", "Position", "Filled", "成交紀錄"], "url": "https://www.xq.com.tw/xstrader/xq交易語法專章/"},
+    {"name": "當沖語法支援的欄位說明", "kind": "article", "published_on": "2019-08-20", "categories": ["盤中", "報價", "五檔", "欄位", "資料單位"], "url": "https://www.xq.com.tw/xstrader/當沖語法支援的欄位說明/"},
+    {"name": "如何使用跨頻率技術指標來建構策略雷達", "kind": "article", "published_on": "2019-07-31", "categories": ["跨頻率", "技術指標", "策略雷達", "對位"], "url": "https://www.xq.com.tw/xstrader/如何使用跨頻率技術指標來建構策略雷達/"},
+    {"name": "依成交量分佈情況而設計的預估量演算法", "kind": "article", "published_on": "2019-07-19", "categories": ["預估量", "演算法", "自訂函數", "盤中"], "url": "https://www.xq.com.tw/xstrader/依成交量分佈情況而設計的預估量演算法/"},
+    {"name": "答客問之MACD柱體反轉的寫法", "kind": "article", "published_on": "2019-03-29", "categories": ["MACD", "選股", "柱體", "序列", "狀態轉折"], "url": "https://www.xq.com.tw/xstrader/答客問之macd柱體反轉的寫法/"},
+    {"name": "選股常用語的對應程式集(二)", "kind": "article", "published_on": "2019-03-21", "categories": ["選股", "RSI", "語意轉條件", "常用語法"], "url": "https://www.xq.com.tw/xstrader/選股常用語的對應程式集二/"}
+  ]
+}

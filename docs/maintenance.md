@@ -6,7 +6,9 @@
 
 更新 API 說明時，核對正式頁面、腳本類型、商品與頻率；更新交易語義時，同時查看代表性的官方交易範例。頁面名稱正確或語法能高亮，都不能取代編譯與執行證據。
 
-原創內容、索引與外部內容分開維護。新增第三方原文或程式前，先確認其授權；目前套件只附識別索引與原創摘要／範例。
+原創內容、索引與外部內容分開維護。新增第三方原文或程式前，先確認其授權；目前除識別索引與原創摘要／範例，也收錄依 MIT 提供的兩份官方編輯器設定，來源與條款一併保留。
+
+桌面編譯以 `xq-xs/scripts/xq_compile.py` 為入口，Win32 操作集中在 `xq_compile_windows.py`，不要複製第二套 GUI 操作腳本。更換 XQ 控制項或結果讀取方式時，用受影響的最小實機案例驗證；純文件更新不需重跑 XQ。不要將假資料測試的通過寫成實機編譯通過。
 
 ## 重建索引
 
@@ -44,6 +46,8 @@ python scripts/build_catalogs.py --reference-dir <snapshot-folder> --preset-tree
 
 重建後檢視新增／刪除名稱、來源雜湊、搜尋連結數與五類官方腳本數量，按結果更新 README 與整併文件。不要把更新索引寫成「所有 API 均已驗證」。
 
+`articles-index.json` 另依指定官方分類頁維護名稱、日期、主題與 URL，沒有抓入文章全文。更新時保持分類頁實際可見範圍與 `scope` 一致。`assets/editor/source.json` 固定 extension commit 與兩份上游 blob；換版本時一併核對 MIT 授權與語法差異，不把高亮清單當成 compiler 規格。
+
 ## 最小驗證
 
 在專案根目錄用 Python 3.10+ 執行：
@@ -52,6 +56,15 @@ python scripts/build_catalogs.py --reference-dir <snapshot-folder> --preset-tree
 python -m unittest discover -s tests -v
 python scripts/validate_repository.py
 ```
+
+建議改用 Skill 內固定的 uv 環境，從專案根目錄執行：
+
+```text
+uv run --locked --project xq-xs python -m unittest discover -s tests -v
+uv run --locked --project xq-xs python scripts/validate_repository.py
+```
+
+`xq-xs/pyproject.toml`、`.python-version` 與 `uv.lock` 是唯一環境設定，目前固定 Python 3.13.5、零第三方依賴。`.venv` 是本機產物，不提交或打包；不要複製另一台的 `.venv`。調整版本或依賴時明確更新這三個檔案，執行 `uv lock --project xq-xs` 並驗證受影響工具。`--locked` 偵測到設定與鎖檔不同時應停止，不在一般使用流程默默改鎖檔。
 
 測試覆蓋多行抓取表格、關鍵字 article／api URL、命名空間去重、缺網址的搜尋退路、完整樹檢查、URL 編碼、查找排序／結束碼，以及抽離 ZIP 後的工具使用。
 

@@ -40,7 +40,7 @@ def load_index(path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("query", help="Name, title, category, or space-separated path terms")
-    parser.add_argument("--source", choices=("help", "preset", "all"), default="help")
+    parser.add_argument("--source", choices=("help", "preset", "articles", "all"), default="help")
     parser.add_argument("--kind", choices=HELP_KINDS + PRESET_KINDS)
     parser.add_argument("--limit", type=int, default=8)
     parser.add_argument("--json", action="store_true", dest="as_json")
@@ -48,11 +48,12 @@ def main() -> int:
     if not args.query.strip() or not 1 <= args.limit <= 100:
         parser.error("Supply a non-empty query and --limit between 1 and 100")
     if ((args.source == "help" and args.kind in PRESET_KINDS)
-            or (args.source == "preset" and args.kind in HELP_KINDS)):
+            or (args.source == "preset" and args.kind in HELP_KINDS)
+            or (args.source == "articles" and args.kind not in (None, "article"))):
         parser.error("--kind does not belong to the chosen --source")
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    sources = ("help", "preset") if args.source == "all" else (args.source,)
+    sources = ("help", "preset", "articles") if args.source == "all" else (args.source,)
     records, provenance = [], {}
     try:
         for source in sources:

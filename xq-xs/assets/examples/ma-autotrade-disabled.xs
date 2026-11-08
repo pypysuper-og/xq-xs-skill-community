@@ -1,5 +1,5 @@
 {@type:autotrade}
-// 原創教學骨架；預設關閉交易指令。未在 XQ 編譯、回測或執行。
+// 原創教學骨架；預設關閉交易指令。已於 XQ 個人版 3.20.04 261006 編譯；未執行或回測。
 Input: EnableOrders(false, "啟用交易指令"),
        FastLength(5, "短期期數"), SlowLength(20, "長期期數"),
        TargetLots(1, "多單目標單位");

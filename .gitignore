@@ -3,5 +3,7 @@ __pycache__/
 .pytest_cache/
 .codegraph/
 dist/
+compile-evidence/
+.venv/
 .DS_Store
 Thumbs.db

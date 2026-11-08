@@ -1,5 +1,5 @@
 {@type:filter}
-// 原創示範；未在 XQ 編譯或執行。選股請選支援的日或更長頻率。
+// 原創示範；已於 XQ 個人版 3.20.04 261006 編譯；未執行或回測。選股請選支援的日或更長頻率。
 Input: FastLength(5, "短期期數"), SlowLength(20, "長期期數");
 Variable: FastMA(0), SlowMA(0);
 

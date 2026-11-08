@@ -12,6 +12,7 @@
 
 - [XSHelp](https://xshelp.xq.com.tw/XSHelp/)
 - [XQ 語法運用教學](https://www.xq.com.tw/lesson/xspractice/)
+- [XQ 程式語法文章分類](https://www.xq.com.tw/xstrader/category/程式語法/)
 
 官方網站保留其內容權利。提供的抓取文件只用於整理名稱、分類、URL 與來源雜湊；本套件不包含手冊全文、網頁圖像或抓取原文。參考文件為重新撰寫的摘要，應回到官方頁確認當前規格。
 
@@ -20,6 +21,34 @@
 [sysjust-xq/XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) 的索引基準為 `d15a4157ccb2c439b3633dec200808924a7f83a7`。該 commit 的完整遞迴檔案樹未見 LICENSE／COPYING／NOTICE 檔；這只是檔案樹觀察，不是對其他授權可能性的判定。
 
 本套件只保存官方檔名、路徑、blob SHA 與固定版本連結，未附上游 `.xs` 程式本體。`assets/examples/` 的腳本為本套件重新撰寫。要另行散布上游內容，仍須依原權利人的授權處理。
+
+## 官方 VS Code 高亮設定（MIT）
+
+`assets/editor/xs.tmLanguage.json` 與 `language-configuration.json` 來自 [sysjust-xq/vscode-xs](https://github.com/sysjust-xq/vscode-xs/tree/c6101a57676990160de656171bd72638d5758102)，固定 commit `c6101a57676990160de656171bd72638d5758102`，version 1.0.2。來源與 blob SHA 見同目錄 `source.json`；僅可能正規化檔尾換行，未修訂規則。這兩份上游檔案依下列原始 MIT 授權收錄：
+
+```text
+MIT License
+
+Copyright (c) 2023 SysJust
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 ## MIT 的範圍
 

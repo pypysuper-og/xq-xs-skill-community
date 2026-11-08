@@ -1,6 +1,37 @@
 # 驗證紀錄
 
-驗證日期：**2026-10-21**。執行環境：Windows、Python **3.13.5**。範圍為 skill 套件、索引與工具；不包含 XQ runtime。
+## 2026-11-09：桌面編譯與擴充參考
+
+Windows、Python **3.13.5**。38 項測試已通過，涵蓋既有索引與可攜套件，以及新文章查找、UTF-8／類型註解正規化、唯讀精確名稱查詢、epoch 含毫秒的未編譯狀態、唯一腳本名稱的終止輸出、來源矛盾拒絕、缺少文字診斷，以及觸發後異常仍保留證據。實際使用 `unittest` discover API 執行，將測試暫存目錄指定到操作者的工作目錄。可重現入口：
+
+```text
+uv run --locked --project xq-xs python -m unittest discover -s tests -v
+uv run --locked --project xq-xs python scripts/validate_repository.py
+```
+
+套件測試會解壓 ZIP，從其他目錄執行查找與編譯 CLI `--help`，並核對文章與編輯器來源。validator 已擴充核對文章日期與官方 URL、兩份 MIT 編輯器資產的固定 blob SHA（允許單一檔尾換行），並排除本機 `.venv`。skill-creator 的 `quick_validate.py` 結果為 `Skill is valid!`；該工具不屬於套件執行依賴。
+
+實機已在 **XQ 個人版 3.20.04 261006** 完成四類正確例、故意錯誤例與修正後重編譯。詳細時間、結果與限制見 [編譯驗證紀錄](compilation-validation.md)。四個均線範例通過編譯，兩個自訂函數尚未實機編譯；全部未執行或回測。套件測試使用假資料，不冒充 XQ 實機證據。
+
+新增 uv 設定固定 Python 3.13.5、零第三方依賴；本機 uv 是 0.9.25。套件包含設定及鎖檔，不包含 `.venv`。一般執行採 `--locked`，不自動變更鎖檔。uv 只管理 Python 環境，不能替代 XQ 安裝與桌面條件。
+
+加入 uv 打包設定後，於該 uv 環境執行受影響的 3 項套件測試，全部通過。另將預覽 ZIP 解壓到不同目錄，核對 CRC 及 34 個封裝檔案與來源相同，實際以 `uv run --locked --offline --project ...` 建立當地 `.venv`，確認 Python 3.13.5、文章查找、CLI `--help` 及 Windows adapter 匯入。刻意改動解壓副本的專案版本後，`--locked` 正確拒絕執行，鎖檔保持不變；恢復副本設定後結束測試。這次 uv 可攜性測試沒有操作 XQ 桌面，實機編譯沿用上面的同版本 Python 證據。
+
+同日讀取官方 VS Code 擴充套件原始碼與 MIT 授權，固定到 `c6101a57676990160de656171bd72638d5758102`，另整理指定分類頁的 11 篇歷史文章。既有手冊與 preset 的查閱日期仍為 2026-10-21，沒有把全部舊索引逐項重新查證。
+
+v0.2.0 發布套件包含桌面編譯工具、參考文件及 uv 設定；既有 v0.1.0 ZIP 不含桌面編譯工具。正式套件建置入口：
+
+```text
+uv run --locked --project xq-xs python scripts/build_package.py --output dist/xq-xs-community-v0.2.0.zip
+```
+
+尚未驗證其他 XQ 版本／企業版、無頭或鎖定桌面、斷線／不同權限層級、所有錯誤列的完整擷取、Python 3.10 實機執行或 Agent 自動選用與安裝啟用。編譯通過不支持回測、獲利或實盤就緒宣稱。
+
+發布版號與鎖檔改為 0.2.0，不改變 Python 版本、依賴或桌面編譯程式。沿用已記錄的 XQ 實測，並核對正式 ZIP 與 tag 來源的檔案內容；下載資產與 SHA-256 可由 [v0.2.0 Release](https://github.com/pypysuper-og/xq-xs-skill-community/releases/tag/v0.2.0) 查驗。
+
+## v0.1.0 的歷史驗證
+
+以下內容僅記錄 **2026-10-21 當時** 的套件檢查；當時尚未進行的四類編譯，已由上方 2026-11-09 紀錄補充。執行環境：Windows、Python **3.13.5**。
 
 ## 已執行
 
@@ -50,7 +81,7 @@ README 經 GitHub Markdown API 渲染，檢查標題、表格、封面與徽章�
 
 官方直達頁與固定版本連結見 [來源地圖](../xq-xs/references/source-map.md)。所有 1,455 筆 help／文章識別紀錄的 URL 並未逐一連線驗證；83 筆只有搜尋連結。索引整併日期不等於 API 的現行查證日期。
 
-## 尚未執行
+## 2026-10-21 當時尚未執行
 
 - 在 XQ 編輯器編譯六個原創 XS 範例。
 - 對指定商品、頻率與期間進行 XQ 歷史執行或回測。

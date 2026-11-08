@@ -1,0 +1,9 @@
+[project]
+name = "xq-xs-community-tools"
+version = "0.2.0"
+description = "Offline XS reference lookup and an optional XQ desktop compilation bridge."
+requires-python = "==3.13.5"
+dependencies = []
+
+[tool.uv]
+package = false
