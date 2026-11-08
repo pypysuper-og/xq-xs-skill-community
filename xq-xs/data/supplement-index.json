@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "assembled_on": "2026-11-09",
+  "scope": "Selective supplement: 38 SDT names observed in the current official catalog plus 12 individually rechecked API/declaration pages. Identifier metadata only, not a compiler test, minimum-version guarantee, or full API refresh.",
+  "catalog_source": {
+    "url": "https://xshelp.xq.com.tw/XSHelp/lists?a=SDTFUNC",
+    "sha256": "8a1441f65b0913f65f3bbc5571b38b60f82135ce9dcbbb103432d628aba3b73b"
+  },
+  "counts": {
+    "builtin": 45,
+    "keyword": 2,
+    "system": 3
+  },
+  "records": [
+    {
+      "name": "CheckField",
+      "kind": "builtin",
+      "categories": [
+        "資料缺值"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=CheckField&group=FIELDFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "GetFieldPublishDate",
+      "kind": "builtin",
+      "categories": [
+        "資料發布日期"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=GetFieldPublishDate&group=FIELDFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "GetSymbolGroup",
+      "kind": "builtin",
+      "categories": [
+        "商品清單"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=GetSymbolGroup&group=GENERALFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "GroupSize",
+      "kind": "builtin",
+      "categories": [
+        "商品清單"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=GroupSize&group=GENERALFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "IsSupportField",
+      "kind": "builtin",
+      "categories": [
+        "欄位支援"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=IsSupportField&group=FIELDFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SDT_Average",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Average&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Average_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Average_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_GetKeys",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetKeys&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SDT_GetKeys_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetKeys_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_GetString",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetString&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_GetString_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetString_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_GetValue",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetValue&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SDT_GetValue_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_GetValue_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_HasKey",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_HasKey&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_HasKey_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_HasKey_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Max",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Max&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Max_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Max_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Median",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Median&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Median_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Median_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Min",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Min&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Min_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Min_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_RemoveAll",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_RemoveAll&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_RemoveAll_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_RemoveAll_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_RemoveKey",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_RemoveKey&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_RemoveKey_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_RemoveKey_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetColumnName",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetColumnName&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetColumnName_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetColumnName_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetString",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetString&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetString_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetString_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetStringIf",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetStringIf&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetStringIf_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetStringIf_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetValue",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetValue&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetValue_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetValue_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetValueIf",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetValueIf&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SetValueIf_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SetValueIf_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SDT_Sort",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Sort&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SDT_Sort_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Sort_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SortKey",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SortKey&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SortKey_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SortKey_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SortString",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SortString&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_SortString_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_SortString_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Sum",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "商品資料表"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Sum&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SDT_Sum_L",
+      "kind": "builtin",
+      "categories": [
+        "SDT",
+        "策略共享"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SDT_Sum_L&group=SDTFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "catalog-entry"
+    },
+    {
+      "name": "SetAlign",
+      "kind": "builtin",
+      "categories": [
+        "資料對位"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SetAlign&group=GENERALFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "SetRemoveOutlier",
+      "kind": "builtin",
+      "categories": [
+        "選股排行"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=SetRemoveOutlier&group=GENERALFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "Group",
+      "kind": "keyword",
+      "categories": [
+        "商品清單"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=Group&group=DECLARATION",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "Rank",
+      "kind": "keyword",
+      "categories": [
+        "選股排行"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=Rank&group=DECLARATION",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "Extremes",
+      "kind": "system",
+      "categories": [
+        "極值與輸出參數"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=Extremes&group=PRICERELFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "StandardDev",
+      "kind": "system",
+      "categories": [
+        "標準差"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=StandardDev&group=STATSFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    },
+    {
+      "name": "xfMin_EMA",
+      "kind": "system",
+      "categories": [
+        "跨頻率"
+      ],
+      "url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=xfMin_EMA&group=FREQUENCYFUNC",
+      "checked_on": "2026-11-09",
+      "evidence": "help-page"
+    }
+  ]
+}

@@ -16,6 +16,12 @@
 
 官方網站保留其內容權利。提供的抓取文件只用於整理名稱、分類、URL 與來源雜湊；本套件不包含手冊全文、網頁圖像或抓取原文。參考文件為重新撰寫的摘要，應回到官方頁確認當前規格。
 
+## 官方文章所附 xscript Skill
+
+2026-11-09 從 [〈用 ChatGPT 寫 XS 腳本〉](https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/) 取得其連結的 [xscript_updated_2026-10-15.zip](https://drive.google.com/file/d/1Tp5Pz6LMGtygUY621y8eGUtIQhXnPlSw/view)，SHA-256 為 `c7be852d997f17bd4dba038920dc3265d4aba86b90462c8df42950c722c8b6ac`。18 個成員中未見 LICENSE／COPYING／NOTICE；不由此推定任何再散布授權。
+
+本套件保留檔名／雜湊等來源資訊及重新撰寫的技術摘要，並另核對代表性的官方文件。未打包該 Skill 的手冊、範例、Python checker 或圖示，也未執行其程式。索引與審查範圍見 [upstream-xscript.md](references/upstream-xscript.md)，本專案 MIT 授權不涵蓋該壓縮包。
+
 ## 官方程式範例
 
 [sysjust-xq/XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) 的索引基準為 `d15a4157ccb2c439b3633dec200808924a7f83a7`。該 commit 的完整遞迴檔案樹未見 LICENSE／COPYING／NOTICE 檔；這只是檔案樹觀察，不是對其他授權可能性的判定。

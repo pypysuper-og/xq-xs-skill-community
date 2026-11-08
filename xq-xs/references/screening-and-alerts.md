@@ -24,6 +24,8 @@ end;
 
 商品清單／群組與排行母體也需要明確。查 `Group`、`GetSymbolGroup`、`GroupSize` 時以現行文件為準；離線索引可能未涵蓋新增語法。
 
+[`SetRemoveOutlier`](https://xshelp.xq.com.tw/XSHelp/?HelpName=SetRemoveOutlier&group=GENERALFUNC) 在 Rank 最上層設定，每個 Rank 最多一次，不能放進 if／for。可選 zscore 或 IQR；被排除者也不納入該排行的統計。先依 [`Rank.IsValid`](https://xshelp.xq.com.tw/XSHelp/?HelpName=Rank&group=DECLARATION) 判斷商品是否進入排行，不把未參與當成第一名。商品清單的遍歷見 [Group 參考](data-structures.md)。
+
 ## 警示與洗價
 
 警示的「條件為真」和「使用者收到一次通知」是兩項行為。確認平台的洗價與通知設定，以及腳本是否需要每根 bar、每次交叉或每個交易日一次。

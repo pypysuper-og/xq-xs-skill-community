@@ -1,6 +1,32 @@
 # 驗證紀錄
 
-## 2026-11-09：桌面編譯與擴充參考
+## v0.3.0：官方 Skill 參考與補充索引（2026-11-09）
+
+使用 uv 0.9.25、Python 3.13.5，**42 項測試全部通過**。新增測試涵蓋 SDT 的獨立／合併來源查找、證據日期與層級、錯誤類別拒絕、ChatGPT 文章查找，以及拒絕把內文、其他官方名稱、外站 URL 或「已編譯」宣稱混進補充索引。套件測試另驗證新 JSON、兩份參考文件與解壓後查找。
+
+以下是可重現入口；本次以 unittest discover API 指定單次測試暫存位置，執行同一套測試：
+
+```text
+uv run --locked --project xq-xs python -m unittest discover -s tests -v
+uv run --locked --project xq-xs python scripts/validate_repository.py
+uv run --locked --project xq-xs python scripts/build_package.py --output dist/xq-xs-community-v0.3.0.zip
+```
+
+validator 檢查 55 份 UTF-8 來源、本地連結、私人路徑、既有 1,455／1,419 筆索引與新補充索引；新增檢查核對名稱與官方 URL 的命名空間、逐項證據層級及上游成員大小／雜湊格式。這些均為離線結構檢查，不重新連線證實每個 API。skill-creator frontmatter 檢查通過。
+
+來源查證包括文章實際下載連結、取得的 ZIP 與 18 個成員雜湊，以及 SDT 清單的 38 個名稱／URL。另讀取補充索引中的 12 項函數／宣告頁與 4 個代表性 SDT 頁，並對照官方教學及固定 commit 的 `xfMin_EMA` 原始碼。大型上游範例只作結構與導航檢視；未執行上游 checker，也未全面刷新既有手冊索引。詳見 [採用範圍](../xq-xs/references/upstream-xscript.md)。
+
+正式 ZIP 為 **38 個檔案、183,073 bytes**，SHA-256：
+
+```text
+5f040b10d602d557e63f0950fc7a0db64302b71528f2e11d73fe4e0ead86713d
+```
+
+已核對 CRC 及每個封裝檔案與來源相同，並在獨立解壓位置用 `uv run --locked --offline --project ...` 建立該位置的 Python 3.13.5 環境，實測 SDT／Group／新文章查找、編譯 CLI `--help` 及 Windows adapter 匯入。三個環境設定檔未被改寫。公開來源與 ZIP 的私人路徑、常見 token／private-key／含憑證 URL 掃描未命中；此掃描不代表完整的秘密資訊偵測保證。
+
+本版桌面編譯的兩個 Python 檔案與前版完全相同，沒有操作 XQ。四類編譯案例仍沿用下方既有證據；本版新增的 SDT、Group、排行或欄位語義說明**尚未進行實機編譯或執行**，不據此聲稱回測或交易行為已驗證。
+
+## v0.2.0：桌面編譯與擴充參考（2026-11-09）
 
 Windows、Python **3.13.5**。38 項測試已通過，涵蓋既有索引與可攜套件，以及新文章查找、UTF-8／類型註解正規化、唯讀精確名稱查詢、epoch 含毫秒的未編譯狀態、唯一腳本名稱的終止輸出、來源矛盾拒絕、缺少文字診斷，以及觸發後異常仍保留證據。實際使用 `unittest` discover API 執行，將測試暫存目錄指定到操作者的工作目錄。可重現入口：
 

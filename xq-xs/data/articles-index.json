@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
   "assembled_on": "2026-11-09",
-  "scope": "The 11 entries visible on the supplied XQ programming-language category page; not a complete site crawl or a current compiler specification.",
+  "scope": "The 11 entries visible on the supplied programming-language category page, plus the separately supplied official ChatGPT/XS skill article. Not a complete site crawl or current compiler specification.",
   "category_url": "https://www.xq.com.tw/xstrader/category/程式語法/",
+  "supplemental_urls": ["https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/"],
   "records": [
     {"name": "XQ量化交易平台學習地圖", "kind": "article", "published_on": "2016-03-03", "categories": ["學習地圖", "基礎語法", "編輯器"], "url": "https://www.xq.com.tw/xstrader/xslearnmap/"},
     {"name": "走進網友的交易室1-使用XS打造多方警示策略的步驟", "kind": "article", "published_on": "2022-10-24", "categories": ["警示", "策略雷達", "選股", "進出場條件"], "url": "https://www.xq.com.tw/xstrader/走進網友的交易室1-使用xs打造多方策略的步驟/"},
@@ -14,6 +15,7 @@
     {"name": "如何使用跨頻率技術指標來建構策略雷達", "kind": "article", "published_on": "2019-07-31", "categories": ["跨頻率", "技術指標", "策略雷達", "對位"], "url": "https://www.xq.com.tw/xstrader/如何使用跨頻率技術指標來建構策略雷達/"},
     {"name": "依成交量分佈情況而設計的預估量演算法", "kind": "article", "published_on": "2019-07-19", "categories": ["預估量", "演算法", "自訂函數", "盤中"], "url": "https://www.xq.com.tw/xstrader/依成交量分佈情況而設計的預估量演算法/"},
     {"name": "答客問之MACD柱體反轉的寫法", "kind": "article", "published_on": "2019-03-29", "categories": ["MACD", "選股", "柱體", "序列", "狀態轉折"], "url": "https://www.xq.com.tw/xstrader/答客問之macd柱體反轉的寫法/"},
-    {"name": "選股常用語的對應程式集(二)", "kind": "article", "published_on": "2019-03-21", "categories": ["選股", "RSI", "語意轉條件", "常用語法"], "url": "https://www.xq.com.tw/xstrader/選股常用語的對應程式集二/"}
+    {"name": "選股常用語的對應程式集(二)", "kind": "article", "published_on": "2019-03-21", "categories": ["選股", "RSI", "語意轉條件", "常用語法"], "url": "https://www.xq.com.tw/xstrader/選股常用語的對應程式集二/"},
+    {"name": "用ChatGPT寫XS腳本", "kind": "article", "published_on": "2026-10-01", "categories": ["ChatGPT", "AI", "Skill", "XS寫作"], "url": "https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/"}
   ]
 }

@@ -2,12 +2,14 @@
 
 ## 最新官方參考日期
 
-兩個主要 upstream 於 **2026-10-21（台灣時間，UTC+8）** 重新查閱。
+主要索引沿用 **2026-10-21（台灣時間，UTC+8）** 的查閱基準；2026-11-09 另外檢查官方文章所附 Skill、SDT 清單及補充 API，沒有全面刷新舊索引。
 
 | 來源 | 最新查閱日 | 查閱時觀察 |
 |---|---|---|
 | [XSHelp](https://xshelp.xq.com.tw/XSHelp/) | **2026-10-21** | 首頁最新列企業版 v7.20.03／個人版 v3.20.03 更新說明 |
 | [XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) | **2026-10-21** | `main` 最新 commit 仍為 `d15a4157ccb2c439b3633dec200808924a7f83a7`，提交日期 2026-09-17 |
+| [官方文章所附 xscript Skill](https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/) | **2026-11-09** | 下載 2026-10-15 ZIP，記錄 18 個成員雜湊；採用範圍見 [來源審查](upstream-xscript.md) |
+| [SDT 官方清單](https://xshelp.xq.com.tw/XSHelp/lists?a=SDTFUNC) 與補充 API | **2026-11-09** | 清單 38 個名稱，加 12 項個別函數／宣告；查證層級逐項記錄 |
 
 這是來源查閱日期，並非所有 API 的更新日期。離線快照的來源日期、索引整併日期與逐項查證範圍仍依下文分別說明。
 
@@ -20,6 +22,7 @@
 | [XQ 語法運用教學](https://www.xq.com.tw/lesson/xspractice/) | 對位、序列、排行、Tick、除錯等概念 | 舊教學仍須對照現行語法與平台設定 |
 | [程式語法文章分類](https://www.xq.com.tw/xstrader/category/程式語法/) | 將量價、跨頻率、警示與交易敘述拆成程式條件 | 2026-11-09 索引可見的 11 篇歷史文章，非完整站點或當前規格 |
 | [官方 VS Code 擴充套件](https://marketplace.visualstudio.com/items?itemName=sysjust-xq.xs) | TextMate 高亮與編輯便利設定 | 固定在 2023 年原始碼；不附 compiler 或 language server |
+| [官方文章所附 Skill](upstream-xscript.md) | SDT、Group、版本與資料語義的補充線索 | 部分條目重新核對官方頁；沒有收錄其手冊、程式或圖示 |
 | 隨附參考文件 | 依題目縮小應檢查的語義與風險 | 摘要不能凌駕正式文件或現場編譯證據 |
 | 隨附 JSON 索引 | 找函數／欄位／文章與官方檔案位置 | 不保存原文，不是完整或即時 API 規格 |
 
@@ -38,9 +41,10 @@ python scripts/lookup.py 對位 --kind article
 python scripts/lookup.py 均線 --source preset --kind filter --limit 5
 python scripts/lookup.py "Position Filled" --source preset --json
 python scripts/lookup.py MACD --source articles --json
+python scripts/lookup.py SDT_GetValue --source supplement --json
 ```
 
-`--source` 為 `help`（預設）、`preset`、`articles` 或合併三者的 `all`。help 類別：`builtin`、`system`、`keyword`、`quote`、`data`、`selection`、`article`；preset 類別：`function`、`indicator`、`sensor`、`filter`、`autotrade`；articles 只支援 `article`。多個空白分隔詞採交集搜尋，完整名稱優先。
+`--source` 為 `help`（預設）、`preset`、`articles`、`supplement` 或合併四者的 `all`。help 類別：`builtin`、`system`、`keyword`、`quote`、`data`、`selection`、`article`；preset 類別：`function`、`indicator`、`sensor`、`filter`、`autotrade`；articles 只支援 `article`；supplement 支援 `builtin`、`system`、`keyword`。多個空白分隔詞採交集搜尋，完整名稱優先。不同來源可保留同名條目，方便核對各自日期與證據。
 
 輸出上限預設 8，可設為 1–100。JSON 會列 `total`、`returned`、來源日期及固定 commit。結束碼 `0` 表示找到，`1` 表示未命中，`2` 表示參數／索引錯誤。中文名稱用 UTF-8 輸出。
 
@@ -53,7 +57,8 @@ python scripts/lookup.py MACD --source articles --json
 - 有直達 URL 的紀錄保留官方分類，舊 `/api?a=...&b=...` 轉為相同名稱／分類的 help URL。多個分類入口保留在 `alternate_urls`。
 - 只有名稱／分類而沒有來源直達 URL 的紀錄，`link_type` 為 `search`；其連結只是官方搜尋入口，沒有猜測 group。
 - `preset-index.json` 固定到 `d15a4157ccb2c439b3633dec200808924a7f83a7`，記錄檔案路徑及 blob SHA，內容僅是索引。查目前版本仍需開啟上游。
-- `articles-index.json` 於 2026-11-09 整理指定分類頁的可見文章，保留文章刊登日期。它與 help 原有的 22 篇語法運用文章是不同索引，未聲稱涵蓋全部文章或取代現行 XSHelp。
+- `articles-index.json` 於 2026-11-09 整理指定分類頁可見的 11 篇文章，另加入指定的 ChatGPT／XS 文章，共 12 篇，保留各自刊登日期。它與 help 原有的 22 篇語法運用文章是不同索引，未聲稱涵蓋全部文章或取代現行 XSHelp。
+- `supplement-index.json` 的 50 筆名稱另附 `checked_on` 與 `evidence`。`catalog-entry` 只證明官方 SDT 清單可見；`help-page` 表示本次讀過個別頁面，均不是編譯結果或最低版本保證。上游文章與 ZIP 雜湊另記於 `upstream-xscript.json`。
 
 ## 開啟原文與衝突處理
 

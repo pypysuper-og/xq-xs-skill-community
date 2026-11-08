@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -109,6 +110,35 @@ class CatalogTests(unittest.TestCase):
 
 
 class LookupTests(unittest.TestCase):
+    def test_sdt_supplement_preserves_evidence_and_source_scope(self):
+        for source in ("supplement", "all"):
+            with self.subTest(source=source):
+                result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
+                                         "SDT_GetValue_L", "--source", source, "--json"],
+                                        capture_output=True, encoding="utf-8", check=False)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                data = json.loads(result.stdout)
+                row = data["results"][0]
+                self.assertEqual((row["name"], row["source"]), ("SDT_GetValue_L", "supplement"))
+                self.assertEqual(row["evidence"], "catalog-entry")
+                self.assertEqual(row["checked_on"], "2026-11-09")
+                self.assertIn("minimum-version", data["provenance"]["supplement"]["scope"])
+
+    def test_supplement_rejects_unrelated_kind(self):
+        result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
+                                 "Group", "--source", "supplement", "--kind", "filter"],
+                                capture_output=True, encoding="utf-8", check=False)
+        self.assertEqual(result.returncode, 2)
+
+    def test_official_skill_article_is_searchable(self):
+        result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
+                                 "ChatGPT", "--source", "articles", "--json"],
+                                capture_output=True, encoding="utf-8", check=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        row = json.loads(result.stdout)["results"][0]
+        self.assertEqual(row["published_on"], "2026-10-01")
+        self.assertEqual(row["name"], "用ChatGPT寫XS腳本")
+
     def test_article_catalog_is_searchable_with_publication_dates(self):
         result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
                                  "MACD", "--source", "articles", "--json"],
@@ -161,6 +191,23 @@ class LookupTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
+    def test_supplement_rejects_body_injection_and_mismatched_official_url(self):
+        original = json.loads((ROOT / "xq-xs" / "data" / "supplement-index.json").read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory() as temp:
+            skill = Path(temp)
+            (skill / "data").mkdir()
+            shutil.copy2(ROOT / "xq-xs" / "data" / "upstream-xscript.json", skill / "data")
+            for mutation in ({"body": "unlicensed manual body"},
+                             {"url": "https://xshelp.xq.com.tw/XSHelp/?HelpName=Wrong&group=FIELDFUNC"},
+                             {"url": "https://example.com/XSHelp/?HelpName=CheckField&group=FIELDFUNC"},
+                             {"evidence": "compiled"}):
+                with self.subTest(mutation=mutation):
+                    data = json.loads(json.dumps(original))
+                    data["records"][0].update(mutation)
+                    (skill / "data" / "supplement-index.json").write_text(json.dumps(data), encoding="utf-8")
+                    with self.assertRaises(ValueError):
+                        validation.validate_supplement(skill)
+
     def test_committed_indexes_have_no_body_and_preserve_provenance(self):
         help_count, preset_count = validation.validate_indexes(ROOT / "xq-xs")
         self.assertGreater(help_count, 1000)
@@ -182,6 +229,10 @@ class DistributionTests(unittest.TestCase):
                 self.assertIn("xq-xs/pyproject.toml", names)
                 self.assertIn("xq-xs/uv.lock", names)
                 self.assertIn("xq-xs/.python-version", names)
+                self.assertIn("xq-xs/data/supplement-index.json", names)
+                self.assertIn("xq-xs/data/upstream-xscript.json", names)
+                self.assertIn("xq-xs/references/data-structures.md", names)
+                self.assertIn("xq-xs/references/upstream-xscript.md", names)
                 self.assertFalse(any(".venv/" in name for name in names))
                 self.assertTrue(all(name.startswith("xq-xs/") for name in names))
                 self.assertFalse(any("__pycache__" in name or name.startswith("tests/") for name in names))
@@ -193,6 +244,12 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(json.loads(result.stdout)["results"][0]["kind"], "autotrade")
             validation.validate_additions(folder / "installed" / "xq-xs")
+            self.assertEqual(validation.validate_supplement(folder / "installed" / "xq-xs"), 50)
+            result = subprocess.run([sys.executable, str(folder / "installed" / "xq-xs" / "scripts" / "lookup.py"),
+                                     "SDT_GetValue", "--source", "supplement", "--json"], cwd=folder,
+                                    capture_output=True, encoding="utf-8", check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout)["results"][0]["evidence"], "help-page")
             result = subprocess.run([sys.executable, str(folder / "installed" / "xq-xs" / "scripts" / "xq_compile.py"),
                                      "--help"], cwd=folder, capture_output=True, encoding="utf-8", check=False)
             self.assertEqual(result.returncode, 0, result.stderr)

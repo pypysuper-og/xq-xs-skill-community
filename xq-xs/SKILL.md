@@ -25,6 +25,8 @@ description: Write, explain, debug, review, and refactor XS/XScript for XQ; opti
 | 授權使用 XQ 桌面編譯、讀錯誤、修正後重編 | [desktop-compile.md](references/desktop-compile.md) |
 | VS Code XS 高亮、編輯器詞彙與限制 | [editor-grammar.md](references/editor-grammar.md) |
 | 官方程式語法文章與寫作案例 | [learning-cases.md](references/learning-cases.md) |
+| SDT 商品／策略資料表、Group 商品清單 | [data-structures.md](references/data-structures.md) |
+| 官方文章所附 xscript Skill、版本線索與採用範圍 | [upstream-xscript.md](references/upstream-xscript.md) |
 
 不要一次載入全部參考檔、JSON 索引或上游手冊。
 
@@ -40,9 +42,12 @@ python scripts/lookup.py 收盤價 --kind selection
 python scripts/lookup.py "Position Filled" --source preset
 python scripts/lookup.py 對位 --kind article --json
 python scripts/lookup.py 跨頻率 --source articles --json
+python scripts/lookup.py SDT_GetValue --source supplement --json
 ```
 
 索引只保存名稱、分類、出處與連結。`assembled_on` 是整併日期；手冊來源是舊快照，preset 來源固定到索引標示的 commit。命中不代表現行支援，查無結果不代表不存在。確認不熟悉、會隨版本變更或影響交易的細節時，開啟官方原文；無法連線時明說尚未確認，不猜名稱或能力。
+
+`supplement` 是少量近期查證的補充索引，含 SDT。`catalog-entry` 只證明名稱出現在清單；`help-page` 表示讀過個別頁，均不代表目標版本可編譯。遇到 SDT 的 `_L`、Group 或版本差異時，按上表讀相關參考。
 
 建議使用隨附 uv 設定固定 Python 3.13.5：在 skill 目錄先執行 `uv sync --locked`，再以 `uv run --locked python scripts/lookup.py ...` 或相同方式呼叫桌面編譯工具。從其他目錄呼叫時加 `--project <skill-folder>` 並指定正確的腳本路徑。不要複製 `.venv` 或在一般使用中重建鎖檔。
 

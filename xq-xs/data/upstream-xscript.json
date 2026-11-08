@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-09",
+  "article": {
+    "title": "用ChatGPT寫XS腳本",
+    "url": "https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/",
+    "published_on": "2026-10-01"
+  },
+  "archive": {
+    "name": "xscript_updated_2026-10-15.zip",
+    "url": "https://drive.google.com/file/d/1Tp5Pz6LMGtygUY621y8eGUtIQhXnPlSw/view",
+    "modified_at": "2026-10-15T05:53:12.435Z",
+    "bytes": 614929,
+    "sha256": "c7be852d997f17bd4dba038920dc3265d4aba86b90462c8df42950c722c8b6ac",
+    "file_count": 18,
+    "uncompressed_bytes": 2806322
+  },
+  "license_observation": "No LICENSE, COPYING, or NOTICE file is present among the 18 archive members; no redistribution license is inferred.",
+  "integration": "Original notes and identifier metadata, with selected claims rechecked in official documentation. No upstream manuals, examples, or Python checker are redistributed.",
+  "upstream_code_executed": false,
+  "upstream_table_rows": {
+    "official_versions": 43,
+    "official_history": 1109,
+    "field_metadata": 30,
+    "source_navigation": 2661
+  },
+  "members": [
+    {
+      "path": "xscript/SKILL.md",
+      "bytes": 9848,
+      "sha256": "10ce82d1e35256b77fb17854c00fc45d3acb00aeb30909585c6a4c936268c30d"
+    },
+    {
+      "path": "xscript/agents/openai.yaml",
+      "bytes": 470,
+      "sha256": "4b5430d9de535b370151f0a119ecc7e727a03d46731b3011d3ff2f4256f30f22"
+    },
+    {
+      "path": "xscript/assets/icon.svg",
+      "bytes": 1738,
+      "sha256": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d"
+    },
+    {
+      "path": "xscript/references/core-reference.md",
+      "bytes": 49905,
+      "sha256": "6bfee8c2d0a0f4fbfd0f09884ff3eff084ac107ee5884be10f992dc5ae40eb74"
+    },
+    {
+      "path": "xscript/references/examples-part1.md",
+      "bytes": 642927,
+      "sha256": "40331d77ee3f5d7b734498a16d339cd4401eb840c17fc2ae6ee753e87a554fee"
+    },
+    {
+      "path": "xscript/references/examples-part2.md",
+      "bytes": 505592,
+      "sha256": "ff121e40f411e899a209e7a11ba1a511ff65c12c7a866556512fb146dcdac0b8"
+    },
+    {
+      "path": "xscript/references/official-field-metadata.tsv",
+      "bytes": 12424,
+      "sha256": "93f6522da916d17295ffecf98756557df4e07d99aed7ea4a4d36034fbb976dcb"
+    },
+    {
+      "path": "xscript/references/official-history-index.tsv",
+      "bytes": 207918,
+      "sha256": "66cc9f19d867bb23de7486c6221959066052122c0e932e91d8c79ba7da75771f"
+    },
+    {
+      "path": "xscript/references/official-updates.md",
+      "bytes": 9914,
+      "sha256": "c613f781634848ccf58760b7deee1a40b4579b1a1505802e9924e2c30a80796c"
+    },
+    {
+      "path": "xscript/references/official-version-index.tsv",
+      "bytes": 3721,
+      "sha256": "6b9d636b11881a5733b8b8de29185f13fd9686fc909a3e7503153587cc939018"
+    },
+    {
+      "path": "xscript/references/recent-api-reference.md",
+      "bytes": 18400,
+      "sha256": "92a0acb7495fa2c18f42e798f77a8be460af84bf8b493a2f18d4a6ee40d42477"
+    },
+    {
+      "path": "xscript/references/sdt-reference.md",
+      "bytes": 15115,
+      "sha256": "df07ec9213f535ba668d44823243b39d07dd1eec88ecf072753647b23c6b6cad"
+    },
+    {
+      "path": "xscript/references/source-index.tsv",
+      "bytes": 325563,
+      "sha256": "9eeea7588e71ab8fcc76ac54a1538be23fad8c8657454615211c2b5e176440c8"
+    },
+    {
+      "path": "xscript/references/sources-and-corrections.md",
+      "bytes": 8382,
+      "sha256": "161da062c4e6b3cee3b2c788428046e22a3a5d828b96d8d21f0b8c6d14ec84ed"
+    },
+    {
+      "path": "xscript/references/system-scripts.md",
+      "bytes": 976138,
+      "sha256": "9fa9472ae3f975bfc1f4c5c0713f5d2a9fdfb7dad1dde0e5f31ee7792ab089b0"
+    },
+    {
+      "path": "xscript/references/workflows.md",
+      "bytes": 6836,
+      "sha256": "6ed61caa77bcf9d675c25f46c0206beb76ec63837fba143690033f8e5f71649f"
+    },
+    {
+      "path": "xscript/scripts/check_xscript.py",
+      "bytes": 5523,
+      "sha256": "a6f9ed402ad0b0f162ad99bb573c61e8421a9aeb015790c22be9c0a058ba19e9"
+    },
+    {
+      "path": "xscript/scripts/test_check_xscript.py",
+      "bytes": 5908,
+      "sha256": "da301f68faa4d25f8f1fe7dc4945200f76a63f49d6634d7d590da5c9a5dba508"
+    }
+  ]
+}

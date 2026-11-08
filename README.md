@@ -8,7 +8,7 @@
 
 **選股條件、技術指標、策略雷達、交易腳本——從一句想法，到有來源可查的程式草稿。**
 
-[![Release v0.2.0](https://img.shields.io/badge/release-v0.2.0-0f766e?style=flat-square)](https://github.com/pypysuper-og/xq-xs-skill-community/releases/tag/v0.2.0) [![繁體中文](https://img.shields.io/badge/語言-繁體中文-2563eb?style=flat-square)](README.md) [![Community](https://img.shields.io/badge/社群維護-非官方-ea580c?style=flat-square)](xq-xs/THIRD_PARTY_NOTICES.md) [![MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
+[![Release v0.3.0](https://img.shields.io/badge/release-v0.3.0-0f766e?style=flat-square)](https://github.com/pypysuper-og/xq-xs-skill-community/releases/tag/v0.3.0) [![繁體中文](https://img.shields.io/badge/語言-繁體中文-2563eb?style=flat-square)](README.md) [![Community](https://img.shields.io/badge/社群維護-非官方-ea580c?style=flat-square)](xq-xs/THIRD_PARTY_NOTICES.md) [![MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
 
 [下載最新 Skill](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) · [直接看 Skill](xq-xs/SKILL.md) · [原創範例](xq-xs/references/examples.md) · [回報問題](https://github.com/pypysuper-og/xq-xs-skill-community/issues)
 
@@ -19,6 +19,16 @@
 **XQ × XS Community** 是一套面向台灣投資與交易者的 AI Agent Skill。讓支援 `SKILL.md` 的 AI 助手，依照整理好的 XS 規則與官方來源，協助你把想法寫成程式、讀懂既有腳本，並找出資料引用與交易狀態中的盲點。
 
 你專注在交易邏輯；AI 協助查語法、整理程式與說明依據，最後在你的 XQ 環境中編譯、檢查與驗證。
+
+## v0.3.0：補進官方 Skill 的實用參考
+
+已下載並檢查 [XQ〈用 ChatGPT 寫 XS 腳本〉](https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/) 所附的 xscript ZIP，從中挑出 SDT、Group、版本與資料語義等值得整合的部分，再核對代表性的官方頁面。
+
+- 新增 [SDT／Group 參考](xq-xs/references/data-structures.md)，說明商品表、策略共享表、條件寫入與商品清單的用途。
+- 加入 50 筆補充識別資料：38 個 SDT 名稱與 12 項 API／宣告；CLI 以 `--source supplement` 或 `all` 查找，JSON 保留查證日與證據層級。
+- 補充資料對位、欄位支援／缺值、統計與輸出參數，以及跨頻率文件的版本差異。
+
+本次發布的是重新撰寫的摘要與來源資訊。來源包未附授權檔，沒有將其手冊、範例或 checker 直接納入；完整採用範圍與 ZIP 雜湊見 [上游審查](xq-xs/references/upstream-xscript.md)。新增 API 參考尚未做 XQ 實機編譯或執行。
 
 ## 先試一句話
 
@@ -56,12 +66,13 @@
 
 | 內容 | 規模與用途 |
 |---|---|
-| **主題參考** | 12 份，含語法、資料、函數、警示、交易、桌面編譯、編輯器規則與文章案例 |
+| **主題參考** | 14 份，含語法、資料、SDT／Group、函數、警示、交易、桌面編譯、編輯器規則、文章案例與上游審查 |
 | **離線名稱與來源索引** | 1,455 筆，涵蓋函數、關鍵字、欄位及 22 篇語法運用文章 |
 | **官方範例路徑索引** | 1,419 支，附固定版本網址與 blob SHA |
 | **原創 XS 範例** | 6 個，含數值／布林函數，交易範例預設關閉交易指令 |
 | **離線查找工具** | Python 3.10+，不需第三方 Python 套件 |
-| **程式語法文章索引** | 11 篇，保留刊登日期與官方連結，附寫作案例導讀 |
+| **程式語法文章索引** | 12 篇：分類頁 11 篇，加指定的 ChatGPT／XS 文章，保留刊登日期與官方連結 |
+| **補充 API 索引** | 50 筆官方識別 metadata，區分清單可見與已閱讀個別頁面 |
 | **官方編輯器規則** | 固定版本的 XS TextMate grammar 與語言設定，附 MIT 署名 |
 | **桌面編譯 CLI** | 搭配 XQ 個人版，匯入、核對來源與類型、編譯並讀回結果 |
 
@@ -69,9 +80,9 @@
 
 ## 讓 Agent 寫 XS，再交給 XQ 編譯
 
-v0.2.0 附桌面編譯工具，讓 Agent 執行「寫程式 → CLI 編譯 → 讀錯誤 → 修正 → 再編譯」。**必須另外安裝、開啟並登入 XQ 個人版，並提供可互動的 Windows 桌面。** Skill 本身沒有附獨立 XS 編譯器；CLI 可以直接使用，但編譯工作仍由 XQ 完成。只查語法與寫作不需要開啟 XQ。
+自 v0.2.0 起附桌面編譯工具，讓 Agent 執行「寫程式 → CLI 編譯 → 讀錯誤 → 修正 → 再編譯」。**必須另外安裝、開啟並登入 XQ 個人版，並提供可互動的 Windows 桌面。** Skill 本身沒有附獨立 XS 編譯器；CLI 可以直接使用，但編譯工作仍由 XQ 完成。只查語法與寫作不需要開啟 XQ。
 
-建議使用 [uv](https://docs.astral.sh/uv/) 管理 Python 環境。套件內附 `pyproject.toml`、`.python-version` 與 `uv.lock`，固定已實測的 **Python 3.13.5**，目前零第三方 Python 依賴。uv 會在 Skill 目錄建立自己的 `.venv`，不需手動啟用；既有 Release ZIP 不包含這些新設定。
+建議使用 [uv](https://docs.astral.sh/uv/) 管理 Python 環境。套件內附 `pyproject.toml`、`.python-version` 與 `uv.lock`，固定已實測的 **Python 3.13.5**，目前零第三方 Python 依賴。uv 會在 Skill 目錄建立自己的 `.venv`，不需手動啟用；v0.2.0 及後續 Release ZIP 均包含這些設定。
 
 以下從本專案根目錄執行。操作期間讓鍵盤滑鼠空閒，工具會切換到 XQ：
 
@@ -96,13 +107,13 @@ CLI 每次建立獨立測試腳本，先比對編輯器來源與類型，再觸�
 
 實測只編譯，沒有執行策略、回測或送單。此工具依賴 XQ 桌面介面，尚未驗證無頭 CI、鎖定桌面或其他 XQ 版本；自訂函數目前不在 CLI 支援範圍。完整前提、結束碼與 Agent 修正流程見 [桌面編譯指南](xq-xs/references/desktop-compile.md)，實測證據範圍見 [編譯驗證紀錄](docs/compilation-validation.md)。
 
-**v0.2.0 Release ZIP 包含桌面編譯工具及 uv 環境設定；既有 v0.1.0 ZIP 不含這些功能。** 安裝或更新時保留完整 `xq-xs/` 資料夾。
+**v0.3.0 Release ZIP 保留桌面編譯工具及 uv 環境設定；既有 v0.1.0 ZIP 不含這些功能。** 安裝或更新時保留完整 `xq-xs/` 資料夾。
 
 ## 開始使用
 
 ### 1. 取得套件
 
-到 [Releases](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) 下載 `xq-xs-community-v0.2.0.zip` 並解壓。需要核對檔案時，使用同頁的 `.sha256` 檔。
+到 [Releases](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) 下載 `xq-xs-community-v0.3.0.zip` 並解壓。需要核對檔案時，使用同頁的 `.sha256` 檔。
 
 也可以下載或 clone 本專案；要安裝的是完整 `xq-xs/` 資料夾。
 
@@ -138,7 +149,7 @@ Copy-Item -LiteralPath '.\xq-xs' -Destination $destination -Recurse
 
 ## 官方來源與最新參考日期
 
-**兩個主要 upstream 最新查閱日期：2026-10-21（台灣時間，UTC+8）。**
+**主要索引查閱基準為 2026-10-21；官方 Skill 與精選 API 補充於 2026-11-09 核對。**
 
 | 官方來源 | 本專案最新查閱日 | 查閱時的版本／範圍 |
 |---|---|---|
@@ -146,6 +157,8 @@ Copy-Item -LiteralPath '.\xq-xs' -Destination $destination -Recurse
 | [sysjust-xq/XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) | **2026-10-21** | `main` 最新 commit 為 [`d15a415`](https://github.com/sysjust-xq/XScript_Preset/commit/d15a4157ccb2c439b3633dec200808924a7f83a7)，提交日期 **2026-09-17**；索引固定於此版本 |
 | [官方 XS VS Code 擴充套件](https://marketplace.visualstudio.com/items?itemName=sysjust-xq.xs) | **2026-11-09** | 1.0.2／固定於 2023-04-26 的 [`c6101a5`](https://github.com/sysjust-xq/vscode-xs/commit/c6101a57676990160de656171bd72638d5758102)；只作編輯器規則參考 |
 | [XQ 程式語法文章](https://www.xq.com.tw/xstrader/category/程式語法/) | **2026-11-09** | 指定分類頁可見的 11 篇文章，附案例導讀；不是完整網站或即時 API 規格 |
+| [〈用 ChatGPT 寫 XS 腳本〉與所附 Skill](https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/) | **2026-11-09** | 文章刊於 2026-10-01，取得的 ZIP 修改於 2026-10-15；採用範圍及雜湊另有記錄 |
+| [SDT 官方清單](https://xshelp.xq.com.tw/XSHelp/lists?a=SDTFUNC) 與補充 API | **2026-11-09** | 38 個 SDT 名稱，加 12 項個別函數／宣告；證據層級隨索引保留 |
 
 「查閱日」是本專案重新查看來源的日期，與上游提交日期不同。離線手冊索引來自提供的快照，其中整合文件標示 **2026-02-18**；**並未將全部索引條目逐項更新到 2026-10-21**。新函數、頻率、商品與版本支援，仍需使用時核對現行官方文件。完整說明見 [來源地圖](xq-xs/references/source-map.md) 與 [整併紀錄](docs/consolidation.md)。
 
@@ -159,9 +172,10 @@ python xq-xs/scripts/lookup.py 收盤價 --kind selection
 python xq-xs/scripts/lookup.py "Position Filled" --source preset --json
 python xq-xs/scripts/lookup.py 對位 --kind article
 python xq-xs/scripts/lookup.py 跨頻率 --source articles --json
+uv run --locked --project xq-xs python xq-xs/scripts/lookup.py SDT_GetValue --source supplement --json
 ```
 
-它只查隨附資料，不登入帳戶或送單。命中表示有該索引；查不到時，可改查正式名稱或官方網站。
+它只查隨附資料，不登入帳戶或送單。預設仍查 `help`，使用 `--source all` 可合併四個索引；相同名稱可能有不同來源與日期。補充索引的 `catalog-entry` 表示清單可見，`help-page` 表示讀過個別說明頁，均不代表編譯通過。查不到時，可改查正式名稱或官方網站。
 
 ## 驗證範圍與使用邊界
 

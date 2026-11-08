@@ -14,6 +14,8 @@
 
 使用前核對 [Input 的型別說明與連結](https://xshelp.xq.com.tw/XSHelp/?HelpName=Input&group=DECLARATION)。不要以 Python 傳值／傳參照的直覺猜測 XS 的輸出參數。參數個數、順序、回傳值和輸出變數各自核對；技術指標函數不一定只回傳一個指標值。
 
+2026-11-09 核對的兩個例子：[`Extremes`](https://xshelp.xq.com.tw/XSHelp/?HelpName=Extremes&group=PRICERELFUNC) 成功時回傳 1，極值與相對棒位置由第 4、5 個參數輸出；不可把成功碼當極值。[`StandardDev`](https://xshelp.xq.com.tw/XSHelp/?HelpName=StandardDev&group=STATSFUNC) 第三參數 1 為母體、2 為樣本，不能只因腳本可編譯就忽略統計定義。
+
 ## simple／series 計算
 
 `SetBarMode(0)` 由系統判斷；`1` 是 simple 計算；`2` 是 series 計算。這個設定描述函數計算相依性，不是讓策略切換逐筆洗價的開關。[SetBarMode](https://xshelp.xq.com.tw/XSHelp/?HelpName=SetBarMode&group=GENERALFUNC)
@@ -33,6 +35,8 @@ DynamicSamples[1] = Close;
 依 [Array 說明](https://xshelp.xq.com.tw/XSHelp/?HelpName=Array&group=DECLARATION)，一般元素存取採 `1` 到宣告大小；不要套用 Python 的零起始迴圈。動態陣列須設定大小後才使用。每個陣列函數另查其索引與長度契約，不能由 `[n]` 推定是時間序列；多維度與容量上限也不應從舊稿寫死。
 
 ## 同根 bar 的狀態
+
+需要 SDT 表格狀態或 Group 商品清單時，改讀 [資料結構參考](data-structures.md)。SDT 目前狀態、一般變數的前期序列，以及跨同棒洗價的保留狀態，應分別處理。
 
 一般變數的歷史序列與同根 bar 逐筆保留狀態，是兩種需求。需要讓計數器、去重鍵或讀 Tick 的游標跨洗價保存時，使用正確宣告的 `IntrabarPersist`，並定義何時重置。
 

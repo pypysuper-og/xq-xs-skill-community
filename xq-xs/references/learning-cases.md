@@ -40,4 +40,4 @@ python scripts/lookup.py MACD --source articles
 python scripts/lookup.py Filled --source all --kind article
 ```
 
-`articles` 只查這次分類頁索引；`help` 仍保留既有的 22 篇語法運用文章。`all` 合併三種索引查找，不代表完整搜尋 XQ 網站。查到後開啟原文，引用對當前判斷有用的少量內容即可。
+`articles` 查分類頁的 11 篇文章與另外指定的 [〈用 ChatGPT 寫 XS 腳本〉](https://www.xq.com.tw/xstrader/%E7%94%A8chatgpt%E5%AF%ABxs%E8%85%B3%E6%9C%AC/)，共 12 篇。後者所附 ZIP 的審查與整合見 [來源紀錄](upstream-xscript.md)。`help` 仍保留既有的 22 篇語法運用文章；`all` 合併四種索引查找，不代表完整搜尋 XQ 網站。查到後開啟原文，引用對當前判斷有用的少量內容即可。

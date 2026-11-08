@@ -48,6 +48,10 @@ python scripts/build_catalogs.py --reference-dir <snapshot-folder> --preset-tree
 
 `articles-index.json` 另依指定官方分類頁維護名稱、日期、主題與 URL，沒有抓入文章全文。更新時保持分類頁實際可見範圍與 `scope` 一致。`assets/editor/source.json` 固定 extension commit 與兩份上游 blob；換版本時一併核對 MIT 授權與語法差異，不把高亮清單當成 compiler 規格。
 
+`supplement-index.json` 是經挑選的官方識別補充，不由舊快照重建器產生。維護時保留官方實際 URL、查證日與證據層級：`catalog-entry` 僅清單可見，`help-page` 才表示讀過個別頁面；都不能標成已編譯或推定最低版本。若與舊索引有同名條目，保留來源差異。新增分類時同步調整 validator 的命名空間對應。
+
+官方文章所附 Skill 的下載身分見 `upstream-xscript.json`。下載連結可能換檔，更新時重新核對 ZIP 與各成員雜湊、大小及權利檔；對照 [審查範圍](../xq-xs/references/upstream-xscript.md)，選擇能用現行官方文件確認的內容。不要執行來源包的 checker 作為下載檢查，也不把版本／更新紀錄列數當成獨立 API 數。新增原文或程式的散布須另有適用授權，目前僅發布重新撰寫的摘要與識別 metadata。
+
 ## 最小驗證
 
 在專案根目錄用 Python 3.10+ 執行：

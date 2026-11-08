@@ -12,7 +12,7 @@ import hashlib
 from pathlib import Path, PurePosixPath
 import re
 import sys
-from urllib.parse import quote, unquote, urlsplit
+from urllib.parse import parse_qs, quote, unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "xq-xs"
@@ -106,6 +106,8 @@ def validate_additions(skill: Path) -> None:
         check_url(row["url"], "www.xq.com.tw")
         require(urlsplit(row["url"]).path.startswith("/xstrader/") and row["url"] not in urls, "Unexpected/duplicate article URL")
         urls.add(row["url"])
+    require(set(articles.get("supplemental_urls", [])) <= urls,
+            "Supplemental article URL has no catalog record")
     editor = skill / "assets" / "editor"
     source = json.loads((editor / "source.json").read_text(encoding="utf-8"))
     require(source["repository"] == "sysjust-xq/vscode-xs" and source["license"] == "MIT", "Unexpected editor source")
@@ -121,6 +123,76 @@ def validate_additions(skill: Path) -> None:
     require(grammar["scopeName"] == "source.xs", "Unexpected editor grammar scope")
     require("Copyright (c) 2023 SysJust" in (skill / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8"),
             "Missing editor asset attribution")
+
+
+def validate_supplement(skill: Path) -> int:
+    data = json.loads((skill / "data" / "supplement-index.json").read_text(encoding="utf-8"))
+    require(data["schema_version"] == 1 and bool(data["records"]) and bool(data["scope"]),
+            "Invalid supplemental catalog")
+    assembled = date.fromisoformat(data["assembled_on"])
+    require(data["counts"] == dict(Counter(row["kind"] for row in data["records"])),
+            "Supplement counts disagree with records")
+    check_url(data["catalog_source"]["url"], "xshelp.xq.com.tw")
+    require(re.fullmatch(r"[0-9a-f]{64}", data["catalog_source"]["sha256"]) is not None,
+            "Invalid catalog source hash")
+    groups = {"SDTFUNC": "builtin", "GENERALFUNC": "builtin", "FIELDFUNC": "builtin",
+              "DECLARATION": "keyword", "STATSFUNC": "system", "PRICERELFUNC": "system",
+              "FREQUENCYFUNC": "system"}
+    identities = set()
+    for row in data["records"]:
+        require(set(row) == {"name", "kind", "categories", "url", "checked_on", "evidence"},
+                "Supplement must contain identifier metadata only")
+        identity = row["kind"], row["name"].casefold()
+        require(bool(row["name"].strip()) and identity not in identities,
+                "Invalid or duplicate supplemental identity")
+        identities.add(identity)
+        require(isinstance(row["categories"], list) and bool(row["categories"]),
+                "Missing supplemental categories")
+        require(date.fromisoformat(row["checked_on"]) <= assembled, "Invalid supplemental check date")
+        require(row["evidence"] in {"help-page", "catalog-entry"}, "Unknown supplemental evidence")
+        check_url(row["url"], "xshelp.xq.com.tw")
+        url = urlsplit(row["url"])
+        query = parse_qs(url.query)
+        group = query.get("group", [None])[0]
+        require(url.path == "/XSHelp/" and not url.fragment
+                and set(query) == {"HelpName", "group"}
+                and query["HelpName"] == [row["name"]] and len(query["group"]) == 1
+                and group in groups and groups[group] == row["kind"],
+                "Supplemental URL does not match its identifier namespace")
+        require(row["evidence"] != "catalog-entry" or group == "SDTFUNC",
+                "Catalog-only evidence is limited to the observed SDT catalog")
+    manifest = json.loads((skill / "data" / "upstream-xscript.json").read_text(encoding="utf-8"))
+    require(manifest["schema_version"] == 1 and manifest["upstream_code_executed"] is False,
+            "Unexpected upstream review schema or execution claim")
+    reviewed = date.fromisoformat(manifest["reviewed_on"])
+    require(date.fromisoformat(manifest["article"]["published_on"]) <= reviewed,
+            "Invalid upstream article date")
+    check_url(manifest["article"]["url"], "www.xq.com.tw")
+    archive = manifest["archive"]
+    check_url(archive["url"], "drive.google.com")
+    require(urlsplit(archive["url"]).query == "" and
+            re.fullmatch(r"/file/d/[A-Za-z0-9_-]+/view", urlsplit(archive["url"]).path) is not None,
+            "Archive source must be a public Drive page, not a download credential")
+    require(archive["name"] == Path(archive["name"]).name and archive["name"].endswith(".zip")
+            and re.fullmatch(r"[0-9a-f]{64}", archive["sha256"]) is not None,
+            "Invalid upstream archive identity")
+    require(bool(manifest["license_observation"]) and bool(manifest["integration"]),
+            "Missing upstream rights or integration scope")
+    members = manifest["members"]
+    require(archive["bytes"] > 0 and len(members) == archive["file_count"] > 0
+            and sum(row["bytes"] for row in members) == archive["uncompressed_bytes"],
+            "Upstream member accounting disagrees with archive")
+    paths = set()
+    for row in members:
+        require(set(row) == {"path", "bytes", "sha256"}, "Upstream manifest contains file bodies")
+        path = row["path"]
+        require(path.startswith("xscript/") and ".." not in PurePosixPath(path).parts
+                and "\\" not in path and ":" not in path and path not in paths,
+                "Invalid or duplicate upstream member path")
+        require(row["bytes"] >= 0 and re.fullmatch(r"[0-9a-f]{64}", row["sha256"]) is not None,
+                "Invalid upstream member size or hash")
+        paths.add(path)
+    return len(identities)
 
 
 def validate_tree(root: Path) -> tuple[int, int, int]:
@@ -162,6 +234,7 @@ def validate_tree(root: Path) -> tuple[int, int, int]:
         require(any(first == f"{{@type:{kind}}}" for kind in headers), "Unexpected example type comment")
     help_count, preset_count = validate_indexes(skill)
     validate_additions(skill)
+    validate_supplement(skill)
     return len(files), help_count, preset_count
 
 
@@ -174,6 +247,7 @@ def main() -> int:
     print(f"PASS: {files} UTF-8 source files; local links; public path hygiene; "
           f"{help_count} help/article identifiers; {preset_count} pinned presets.")
     print("XS example type comments checked; XS compilation/runtime not performed.")
+    print("Supplemental identifier provenance and upstream archive manifest checked offline.")
     return 0
 
 

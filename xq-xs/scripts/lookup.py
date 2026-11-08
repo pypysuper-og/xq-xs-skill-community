@@ -10,6 +10,7 @@ import sys
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 HELP_KINDS = ("builtin", "system", "keyword", "quote", "data", "selection", "article")
 PRESET_KINDS = ("function", "indicator", "sensor", "filter", "autotrade")
+SUPPLEMENT_KINDS = ("builtin", "system", "keyword")
 
 
 def search(records: list[dict], query: str, kind: str | None, limit: int) -> tuple[list[dict], int]:
@@ -40,7 +41,7 @@ def load_index(path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("query", help="Name, title, category, or space-separated path terms")
-    parser.add_argument("--source", choices=("help", "preset", "articles", "all"), default="help")
+    parser.add_argument("--source", choices=("help", "preset", "articles", "supplement", "all"), default="help")
     parser.add_argument("--kind", choices=HELP_KINDS + PRESET_KINDS)
     parser.add_argument("--limit", type=int, default=8)
     parser.add_argument("--json", action="store_true", dest="as_json")
@@ -49,11 +50,12 @@ def main() -> int:
         parser.error("Supply a non-empty query and --limit between 1 and 100")
     if ((args.source == "help" and args.kind in PRESET_KINDS)
             or (args.source == "preset" and args.kind in HELP_KINDS)
-            or (args.source == "articles" and args.kind not in (None, "article"))):
+            or (args.source == "articles" and args.kind not in (None, "article"))
+            or (args.source == "supplement" and args.kind not in (None, *SUPPLEMENT_KINDS))):
         parser.error("--kind does not belong to the chosen --source")
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    sources = ("help", "preset", "articles") if args.source == "all" else (args.source,)
+    sources = ("help", "preset", "articles", "supplement") if args.source == "all" else (args.source,)
     records, provenance = [], {}
     try:
         for source in sources:
