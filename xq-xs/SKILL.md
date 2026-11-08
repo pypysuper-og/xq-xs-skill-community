@@ -1,6 +1,6 @@
 ---
 name: xq-xs
-description: Write, explain, debug, review, and refactor XS/XScript scripts for the XQ platform, including indicators, alerts/radar, stock screening, autotrade, and custom functions. Use for XQ .xs code, editor errors, field/frequency questions, and XSHelp or official preset research. Excludes generic broker APIs, investment picks, and non-XQ EasyLanguage projects.
+description: Write, explain, debug, review, and refactor XS/XScript for XQ; optionally compile indicators, screening, alerts, and autotrade through an installed XQ Windows desktop. Use for .xs code, compiler errors, fields/frequencies, XSHelp and official examples. Excludes generic broker APIs, investment picks, and non-XQ EasyLanguage projects.
 ---
 
 # XQ／XS 腳本
@@ -22,6 +22,9 @@ description: Write, explain, debug, review, and refactor XS/XScript scripts for 
 | 錯誤診斷、審查、驗證結果 | [review-and-validation.md](references/review-and-validation.md) |
 | 查官方出處、離線查找、來源衝突 | [source-map.md](references/source-map.md) |
 | 需要可修改的完整範例 | [examples.md](references/examples.md) |
+| 授權使用 XQ 桌面編譯、讀錯誤、修正後重編 | [desktop-compile.md](references/desktop-compile.md) |
+| VS Code XS 高亮、編輯器詞彙與限制 | [editor-grammar.md](references/editor-grammar.md) |
+| 官方程式語法文章與寫作案例 | [learning-cases.md](references/learning-cases.md) |
 
 不要一次載入全部參考檔、JSON 索引或上游手冊。
 
@@ -36,9 +39,12 @@ python scripts/lookup.py GetField --limit 3
 python scripts/lookup.py 收盤價 --kind selection
 python scripts/lookup.py "Position Filled" --source preset
 python scripts/lookup.py 對位 --kind article --json
+python scripts/lookup.py 跨頻率 --source articles --json
 ```
 
 索引只保存名稱、分類、出處與連結。`assembled_on` 是整併日期；手冊來源是舊快照，preset 來源固定到索引標示的 commit。命中不代表現行支援，查無結果不代表不存在。確認不熟悉、會隨版本變更或影響交易的細節時，開啟官方原文；無法連線時明說尚未確認，不猜名稱或能力。
+
+建議使用隨附 uv 設定固定 Python 3.13.5：在 skill 目錄先執行 `uv sync --locked`，再以 `uv run --locked python scripts/lookup.py ...` 或相同方式呼叫桌面編譯工具。從其他目錄呼叫時加 `--project <skill-folder>` 並指定正確的腳本路徑。不要複製 `.venv` 或在一般使用中重建鎖檔。
 
 ## 撰寫與修改
 
@@ -60,7 +66,9 @@ python scripts/lookup.py 對位 --kind article --json
 
 除錯先用錯誤訊息、腳本類型與最小失敗片段定位；審查先報會影響結果的問題。只做當前需求需要的檢查，不為普通修改建立完整實盤驗收流程。
 
-依任務交付解釋、完整程式或最小修改，附必要假設、關鍵來源與實際驗證結果。區分靜態查核、XQ 編譯、指定資料回測、模擬交易與實盤觀察；各項分別列出有無證據。這個 skill 不附 XS compiler。未使用 XQ 時明示：
+需要實機編譯且已有桌面操作授權時，讀 [桌面編譯流程](references/desktop-compile.md)。隨附 CLI 必須搭配已開啟、登入的 XQ 個人版與可互動的 Windows 桌面；它不是獨立 XS compiler。先檢查環境，再編譯與讀取結果；缺少文字診斷時看工具保存的錯誤表格圖片。普通寫作或查語法不需開啟 XQ。
+
+依任務交付解釋、完整程式或最小修改，附必要假設、關鍵來源與實際驗證結果。區分靜態查核、XQ 編譯、指定資料回測、模擬交易與實盤觀察；各項分別列出有無證據。未使用 XQ 時明示：
 
 > 僅完成靜態查核；未在 XQ 編譯或執行。
 

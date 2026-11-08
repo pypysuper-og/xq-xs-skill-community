@@ -109,6 +109,22 @@ class CatalogTests(unittest.TestCase):
 
 
 class LookupTests(unittest.TestCase):
+    def test_article_catalog_is_searchable_with_publication_dates(self):
+        result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
+                                 "MACD", "--source", "articles", "--json"],
+                                capture_output=True, encoding="utf-8", check=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        row = json.loads(result.stdout)["results"][0]
+        self.assertEqual(row["published_on"], "2019-03-29")
+        self.assertEqual(row["source"], "articles")
+
+    def test_all_source_includes_new_article_catalog(self):
+        result = subprocess.run([sys.executable, str(ROOT / "xq-xs" / "scripts" / "lookup.py"),
+                                 "跨頻率", "--source", "all", "--kind", "article", "--json"],
+                                capture_output=True, encoding="utf-8", check=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(any(row["source"] == "articles" for row in json.loads(result.stdout)["results"]))
+
     def test_exact_name_first_case_insensitive_and_bounded(self):
         rows = [{"name": "GetFieldDate", "kind": "builtin"}, {"name": "GetField", "kind": "builtin"}]
         found, total = lookup.search(rows, "getfield", None, 1)
@@ -160,6 +176,13 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(count, len(names))
                 self.assertIn("xq-xs/SKILL.md", names)
                 self.assertIn("xq-xs/LICENSE", names)
+                self.assertIn("xq-xs/scripts/xq_compile.py", names)
+                self.assertIn("xq-xs/scripts/xq_compile_windows.py", names)
+                self.assertIn("xq-xs/assets/editor/source.json", names)
+                self.assertIn("xq-xs/pyproject.toml", names)
+                self.assertIn("xq-xs/uv.lock", names)
+                self.assertIn("xq-xs/.python-version", names)
+                self.assertFalse(any(".venv/" in name for name in names))
                 self.assertTrue(all(name.startswith("xq-xs/") for name in names))
                 self.assertFalse(any("__pycache__" in name or name.startswith("tests/") for name in names))
                 archive.extractall(folder / "installed")
@@ -169,6 +192,11 @@ class DistributionTests(unittest.TestCase):
                                     capture_output=True, encoding="utf-8", check=False)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(json.loads(result.stdout)["results"][0]["kind"], "autotrade")
+            validation.validate_additions(folder / "installed" / "xq-xs")
+            result = subprocess.run([sys.executable, str(folder / "installed" / "xq-xs" / "scripts" / "xq_compile.py"),
+                                     "--help"], cwd=folder, capture_output=True, encoding="utf-8", check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("doctor", result.stdout)
 
     def test_archive_cannot_overwrite_its_source_tree(self):
         with self.assertRaises(ValueError):

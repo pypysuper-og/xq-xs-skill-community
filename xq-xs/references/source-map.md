@@ -18,10 +18,12 @@
 | [XSHelp](https://xshelp.xq.com.tw/XSHelp/) | 語法、函數、欄位、腳本／頻率支援 | 首頁更新紀錄不能取代個別 API 頁 |
 | [XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) | 指標、警示、選股、交易、函數的官方實例 | 特定版本範例，不是所有版本通用保證 |
 | [XQ 語法運用教學](https://www.xq.com.tw/lesson/xspractice/) | 對位、序列、排行、Tick、除錯等概念 | 舊教學仍須對照現行語法與平台設定 |
+| [程式語法文章分類](https://www.xq.com.tw/xstrader/category/程式語法/) | 將量價、跨頻率、警示與交易敘述拆成程式條件 | 2026-11-09 索引可見的 11 篇歷史文章，非完整站點或當前規格 |
+| [官方 VS Code 擴充套件](https://marketplace.visualstudio.com/items?itemName=sysjust-xq.xs) | TextMate 高亮與編輯便利設定 | 固定在 2023 年原始碼；不附 compiler 或 language server |
 | 隨附參考文件 | 依題目縮小應檢查的語義與風險 | 摘要不能凌駕正式文件或現場編譯證據 |
 | 隨附 JSON 索引 | 找函數／欄位／文章與官方檔案位置 | 不保存原文，不是完整或即時 API 規格 |
 
-既有材料另提到 [XS_Blocks](https://github.com/sysjust-xq/XS_Blocks)、[XQStrategy](https://github.com/sysjust-xq/XQStrategy) 與 [vscode-xs](https://github.com/sysjust-xq/vscode-xs)。它們可作進一步研究線索，本次索引不聲稱已整併這些額外專案；高亮詞彙也不構成 runtime 規格。
+既有材料另提到 [XS_Blocks](https://github.com/sysjust-xq/XS_Blocks) 與 [XQStrategy](https://github.com/sysjust-xq/XQStrategy)，本次沒有整併。已整併的編輯器規則見 [editor-grammar.md](editor-grammar.md)，文章案例見 [learning-cases.md](learning-cases.md)；它們不提升既有手冊快照的新鮮度。
 
 ## 查找工具
 
@@ -35,9 +37,10 @@ python scripts/lookup.py 收盤價 --kind selection
 python scripts/lookup.py 對位 --kind article
 python scripts/lookup.py 均線 --source preset --kind filter --limit 5
 python scripts/lookup.py "Position Filled" --source preset --json
+python scripts/lookup.py MACD --source articles --json
 ```
 
-`--source` 為 `help`（預設）、`preset` 或 `all`。help 類別：`builtin`、`system`、`keyword`、`quote`、`data`、`selection`、`article`；preset 類別：`function`、`indicator`、`sensor`、`filter`、`autotrade`。多個空白分隔詞採交集搜尋，完整名稱優先。
+`--source` 為 `help`（預設）、`preset`、`articles` 或合併三者的 `all`。help 類別：`builtin`、`system`、`keyword`、`quote`、`data`、`selection`、`article`；preset 類別：`function`、`indicator`、`sensor`、`filter`、`autotrade`；articles 只支援 `article`。多個空白分隔詞採交集搜尋，完整名稱優先。
 
 輸出上限預設 8，可設為 1–100。JSON 會列 `total`、`returned`、來源日期及固定 commit。結束碼 `0` 表示找到，`1` 表示未命中，`2` 表示參數／索引錯誤。中文名稱用 UTF-8 輸出。
 
@@ -50,6 +53,7 @@ python scripts/lookup.py "Position Filled" --source preset --json
 - 有直達 URL 的紀錄保留官方分類，舊 `/api?a=...&b=...` 轉為相同名稱／分類的 help URL。多個分類入口保留在 `alternate_urls`。
 - 只有名稱／分類而沒有來源直達 URL 的紀錄，`link_type` 為 `search`；其連結只是官方搜尋入口，沒有猜測 group。
 - `preset-index.json` 固定到 `d15a4157ccb2c439b3633dec200808924a7f83a7`，記錄檔案路徑及 blob SHA，內容僅是索引。查目前版本仍需開啟上游。
+- `articles-index.json` 於 2026-11-09 整理指定分類頁的可見文章，保留文章刊登日期。它與 help 原有的 22 篇語法運用文章是不同索引，未聲稱涵蓋全部文章或取代現行 XSHelp。
 
 ## 開啟原文與衝突處理
 

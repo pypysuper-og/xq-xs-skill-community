@@ -8,6 +8,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import date
 import json
+import hashlib
 from pathlib import Path, PurePosixPath
 import re
 import sys
@@ -15,7 +16,7 @@ from urllib.parse import quote, unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "xq-xs"
-TEXT_SUFFIXES = {".md", ".yaml", ".json", ".py", ".xs"}
+TEXT_SUFFIXES = {".md", ".yaml", ".json", ".py", ".xs", ".toml", ".lock"}
 HELP_KINDS = {"builtin", "system", "keyword", "quote", "data", "selection", "article"}
 PRESET_KINDS = {"function", "indicator", "sensor", "filter", "autotrade"}
 PRIVATE_PATH = re.compile(r"[A-Za-z]:[\\/](?:Users|Warehouse)[\\/]", re.IGNORECASE)
@@ -88,8 +89,38 @@ def validate_indexes(skill: Path) -> tuple[int, int]:
 def text_files(root: Path) -> list[Path]:
     return sorted(path for path in root.rglob("*")
                   if path.is_file() and not set(path.relative_to(root).parts) &
-                  {".git", "dist", "__pycache__", ".pytest_cache", ".codegraph"}
-                  and (path.suffix in TEXT_SUFFIXES or path.name in {"LICENSE", ".gitignore", ".gitattributes"}))
+                  {".git", "dist", "__pycache__", ".pytest_cache", ".codegraph", ".venv"}
+                  and (path.suffix in TEXT_SUFFIXES or path.name in {"LICENSE", ".gitignore", ".gitattributes", ".python-version"}))
+
+
+def validate_additions(skill: Path) -> None:
+    articles = json.loads((skill / "data" / "articles-index.json").read_text(encoding="utf-8"))
+    require(articles["schema_version"] == 1 and bool(articles["records"]), "Invalid article catalog")
+    assembled = date.fromisoformat(articles["assembled_on"])
+    check_url(articles["category_url"], "www.xq.com.tw")
+    urls = set()
+    for row in articles["records"]:
+        require(set(row) == {"name", "kind", "published_on", "categories", "url"}, "Unexpected article body/metadata")
+        require(row["kind"] == "article" and bool(row["name"]) and bool(row["categories"]), "Invalid article identity")
+        require(date.fromisoformat(row["published_on"]) <= assembled, "Invalid article date")
+        check_url(row["url"], "www.xq.com.tw")
+        require(urlsplit(row["url"]).path.startswith("/xstrader/") and row["url"] not in urls, "Unexpected/duplicate article URL")
+        urls.add(row["url"])
+    editor = skill / "assets" / "editor"
+    source = json.loads((editor / "source.json").read_text(encoding="utf-8"))
+    require(source["repository"] == "sysjust-xq/vscode-xs" and source["license"] == "MIT", "Unexpected editor source")
+    require(bool(re.fullmatch(r"[0-9a-f]{40}", source["commit"])), "Invalid editor commit")
+    date.fromisoformat(source["reviewed_on"])
+    for item in source["files"]:
+        require(item["local"] == Path(item["local"]).name, "Editor asset must be a local filename")
+        raw = (editor / item["local"]).read_bytes()
+        variants = [raw, raw[:-1]] if raw.endswith(b"\n") else [raw]
+        require(any(hashlib.sha1(b"blob " + str(len(b)).encode("ascii") + b"\0" + b).hexdigest() == item["blob_sha"]
+                    for b in variants), "Bundled editor asset differs from its pinned upstream blob")
+    grammar = json.loads((editor / "xs.tmLanguage.json").read_text(encoding="utf-8"))
+    require(grammar["scopeName"] == "source.xs", "Unexpected editor grammar scope")
+    require("Copyright (c) 2023 SysJust" in (skill / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8"),
+            "Missing editor asset attribution")
 
 
 def validate_tree(root: Path) -> tuple[int, int, int]:
@@ -130,6 +161,7 @@ def validate_tree(root: Path) -> tuple[int, int, int]:
         first = path.read_text(encoding="utf-8").splitlines()[0]
         require(any(first == f"{{@type:{kind}}}" for kind in headers), "Unexpected example type comment")
     help_count, preset_count = validate_indexes(skill)
+    validate_additions(skill)
     return len(files), help_count, preset_count
 
 

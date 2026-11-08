@@ -9,7 +9,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "xq-xs"
-ROOT_FILES = {"SKILL.md", "LICENSE", "THIRD_PARTY_NOTICES.md"}
+ROOT_FILES = {"SKILL.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "pyproject.toml", "uv.lock", ".python-version"}
 DIRECTORIES = {"agents", "assets", "data", "references", "scripts"}
 EXTENSIONS = {".md", ".yaml", ".json", ".py", ".xs"}
 
@@ -21,7 +21,7 @@ def package_files(skill: Path) -> list[Path]:
     files = []
     for path in sorted(skill.rglob("*")):
         relative = path.relative_to(skill)
-        if "__pycache__" in relative.parts:
+        if {"__pycache__", ".venv"} & set(relative.parts):
             continue
         if path.is_symlink():
             raise ValueError("Symlinks are not distributable skill resources")

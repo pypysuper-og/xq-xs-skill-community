@@ -8,7 +8,7 @@
 
 **選股條件、技術指標、策略雷達、交易腳本——從一句想法，到有來源可查的程式草稿。**
 
-[![Release v0.1.0](https://img.shields.io/badge/release-v0.1.0-0f766e?style=flat-square)](https://github.com/pypysuper-og/xq-xs-skill-community/releases/tag/v0.1.0) [![繁體中文](https://img.shields.io/badge/語言-繁體中文-2563eb?style=flat-square)](README.md) [![Community](https://img.shields.io/badge/社群維護-非官方-ea580c?style=flat-square)](xq-xs/THIRD_PARTY_NOTICES.md) [![MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
+[![Release v0.2.0](https://img.shields.io/badge/release-v0.2.0-0f766e?style=flat-square)](https://github.com/pypysuper-og/xq-xs-skill-community/releases/tag/v0.2.0) [![繁體中文](https://img.shields.io/badge/語言-繁體中文-2563eb?style=flat-square)](README.md) [![Community](https://img.shields.io/badge/社群維護-非官方-ea580c?style=flat-square)](xq-xs/THIRD_PARTY_NOTICES.md) [![MIT](https://img.shields.io/badge/License-MIT-64748b?style=flat-square)](LICENSE)
 
 [下載最新 Skill](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) · [直接看 Skill](xq-xs/SKILL.md) · [原創範例](xq-xs/references/examples.md) · [回報問題](https://github.com/pypysuper-og/xq-xs-skill-community/issues)
 
@@ -56,19 +56,53 @@
 
 | 內容 | 規模與用途 |
 |---|---|
-| **主題參考** | 9 份，依問題載入語法、資料、函數、警示與交易說明 |
+| **主題參考** | 12 份，含語法、資料、函數、警示、交易、桌面編譯、編輯器規則與文章案例 |
 | **離線名稱與來源索引** | 1,455 筆，涵蓋函數、關鍵字、欄位及 22 篇語法運用文章 |
 | **官方範例路徑索引** | 1,419 支，附固定版本網址與 blob SHA |
 | **原創 XS 範例** | 6 個，含數值／布林函數，交易範例預設關閉交易指令 |
 | **離線查找工具** | Python 3.10+，不需第三方 Python 套件 |
+| **程式語法文章索引** | 11 篇，保留刊登日期與官方連結，附寫作案例導讀 |
+| **官方編輯器規則** | 固定版本的 XS TextMate grammar 與語言設定，附 MIT 署名 |
+| **桌面編譯 CLI** | 搭配 XQ 個人版，匯入、核對來源與類型、編譯並讀回結果 |
 
 索引讓 AI 先縮小查找範圍，再按需要開啟原文。上游手冊與官方程式保留在原出處，本專案提供重新整理的說明、識別索引與原創範例。
+
+## 讓 Agent 寫 XS，再交給 XQ 編譯
+
+v0.2.0 附桌面編譯工具，讓 Agent 執行「寫程式 → CLI 編譯 → 讀錯誤 → 修正 → 再編譯」。**必須另外安裝、開啟並登入 XQ 個人版，並提供可互動的 Windows 桌面。** Skill 本身沒有附獨立 XS 編譯器；CLI 可以直接使用，但編譯工作仍由 XQ 完成。只查語法與寫作不需要開啟 XQ。
+
+建議使用 [uv](https://docs.astral.sh/uv/) 管理 Python 環境。套件內附 `pyproject.toml`、`.python-version` 與 `uv.lock`，固定已實測的 **Python 3.13.5**，目前零第三方 Python 依賴。uv 會在 Skill 目錄建立自己的 `.venv`，不需手動啟用；既有 Release ZIP 不包含這些新設定。
+
+以下從本專案根目錄執行。操作期間讓鍵盤滑鼠空閒，工具會切換到 XQ：
+
+```powershell
+uv sync --locked --project xq-xs
+uv run --locked --project xq-xs python xq-xs/scripts/xq_compile.py doctor --json
+uv run --locked --project xq-xs python xq-xs/scripts/xq_compile.py compile xq-xs/assets/examples/ma-indicator.xs --type indicator --work-dir ./compile-evidence --json
+```
+
+`--locked` 會在環境設定與鎖檔不一致時報錯，避免一般執行時改寫鎖檔；`uv sync --locked` 依鎖檔同步環境。首次若沒有指定 Python，uv 可能需要下載。保留三個設定檔，讓每台電腦自行建立環境，不要搬移 `.venv`。Python 環境與 XQ 版本是兩件事，uv 不會固定 XQ 的桌面介面。工具仍可直接用 Python 3.10+ 執行，但該方式不套用本專案的版本鎖定。
+
+CLI 每次建立獨立測試腳本，先比對編輯器來源與類型，再觸發一次 F6。回傳成功／失敗、錯誤數與本機證據位置；有文字診斷就回傳文字，只有桌面表格有錯誤時保存可見表格圖片，供 Agent 讀圖修正。**行號與欄位目前沒有結構化擷取，也未保證取得所有錯誤的完整文字。**
+
+已在 XQ 個人版 **`3.20.04 261006`** 實測以下流程：
+
+| 腳本類型 | 正確腳本 | 故意未宣告識別字 | 依診斷修正後 |
+|---|---|---|---|
+| 指標 `indicator` | 通過 | 確認失敗 | 通過 |
+| 選股 `filter` | 通過 | 確認失敗；詳細訊息以表格圖片讀取 | 通過 |
+| 警示 `sensor` | 通過 | 確認失敗 | 通過 |
+| 交易 `autotrade` | 通過 | 確認失敗 | 通過 |
+
+實測只編譯，沒有執行策略、回測或送單。此工具依賴 XQ 桌面介面，尚未驗證無頭 CI、鎖定桌面或其他 XQ 版本；自訂函數目前不在 CLI 支援範圍。完整前提、結束碼與 Agent 修正流程見 [桌面編譯指南](xq-xs/references/desktop-compile.md)，實測證據範圍見 [編譯驗證紀錄](docs/compilation-validation.md)。
+
+**v0.2.0 Release ZIP 包含桌面編譯工具及 uv 環境設定；既有 v0.1.0 ZIP 不含這些功能。** 安裝或更新時保留完整 `xq-xs/` 資料夾。
 
 ## 開始使用
 
 ### 1. 取得套件
 
-到 [Releases](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) 下載 `xq-xs-community-v0.1.0.zip` 並解壓。需要核對檔案時，使用同頁的 `.sha256` 檔。
+到 [Releases](https://github.com/pypysuper-og/xq-xs-skill-community/releases/latest) 下載 `xq-xs-community-v0.2.0.zip` 並解壓。需要核對檔案時，使用同頁的 `.sha256` 檔。
 
 也可以下載或 clone 本專案；要安裝的是完整 `xq-xs/` 資料夾。
 
@@ -90,7 +124,7 @@ New-Item -ItemType Directory -Force -Path (Split-Path $destination -Parent) | Ou
 Copy-Item -LiteralPath '.\xq-xs' -Destination $destination -Recurse
 ```
 
-其他支援 `SKILL.md` 的 AI agent 可放進各自的 skills 目錄，依該工具的方式重新載入。使用指令與參考文件本身不需要 Python；執行離線查找工具時才需要。
+其他支援 `SKILL.md` 的 AI agent 可放進各自的 skills 目錄，依該工具的方式重新載入。閱讀參考文件本身不需要 Python；執行離線查找或桌面編譯工具時才需要。桌面編譯另外需要上述 XQ 環境。
 
 ### 3. 帶著你的條件或錯誤訊息提問
 
@@ -110,6 +144,8 @@ Copy-Item -LiteralPath '.\xq-xs' -Destination $destination -Recurse
 |---|---|---|
 | [XSHelp 線上說明書](https://xshelp.xq.com.tw/XSHelp/) | **2026-10-21** | 首頁列企業版 **v7.20.03**／個人版 **v3.20.03**；核心語法與 API 另參照個別頁面 |
 | [sysjust-xq/XScript_Preset](https://github.com/sysjust-xq/XScript_Preset) | **2026-10-21** | `main` 最新 commit 為 [`d15a415`](https://github.com/sysjust-xq/XScript_Preset/commit/d15a4157ccb2c439b3633dec200808924a7f83a7)，提交日期 **2026-09-17**；索引固定於此版本 |
+| [官方 XS VS Code 擴充套件](https://marketplace.visualstudio.com/items?itemName=sysjust-xq.xs) | **2026-11-09** | 1.0.2／固定於 2023-04-26 的 [`c6101a5`](https://github.com/sysjust-xq/vscode-xs/commit/c6101a57676990160de656171bd72638d5758102)；只作編輯器規則參考 |
+| [XQ 程式語法文章](https://www.xq.com.tw/xstrader/category/程式語法/) | **2026-11-09** | 指定分類頁可見的 11 篇文章，附案例導讀；不是完整網站或即時 API 規格 |
 
 「查閱日」是本專案重新查看來源的日期，與上游提交日期不同。離線手冊索引來自提供的快照，其中整合文件標示 **2026-02-18**；**並未將全部索引條目逐項更新到 2026-10-21**。新函數、頻率、商品與版本支援，仍需使用時核對現行官方文件。完整說明見 [來源地圖](xq-xs/references/source-map.md) 與 [整併紀錄](docs/consolidation.md)。
 
@@ -122,6 +158,7 @@ python xq-xs/scripts/lookup.py GetField --limit 3
 python xq-xs/scripts/lookup.py 收盤價 --kind selection
 python xq-xs/scripts/lookup.py "Position Filled" --source preset --json
 python xq-xs/scripts/lookup.py 對位 --kind article
+python xq-xs/scripts/lookup.py 跨頻率 --source articles --json
 ```
 
 它只查隨附資料，不登入帳戶或送單。命中表示有該索引；查不到時，可改查正式名稱或官方網站。
@@ -130,7 +167,7 @@ python xq-xs/scripts/lookup.py 對位 --kind article
 
 本專案已檢查 Skill 格式、工具行為、索引一致性、本地連結與 ZIP 解壓後的可攜使用。實際結果與指令見 [驗證紀錄](docs/validation.md)。
 
-**六個原創 XS 範例尚未在 XQ 編譯或執行。** 請在自己的 XQ 環境完成編譯、資料核對與適當測試，再決定後續用途。回測、模擬與實盤各有不同證據；本專案不提供獲利保證或個人化投資建議。
+**四個均線範例已在上述 XQ 版本編譯通過，兩個自訂函數尚未實機編譯；全部均未執行或回測。** 請在自己的 XQ 環境核對資料與進行適當測試，再決定後續用途。回測、模擬與實盤各有不同證據；本專案不提供獲利保證或個人化投資建議。
 
 ## 一起讓台灣的 XS 使用更容易
 

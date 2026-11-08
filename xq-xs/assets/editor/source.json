@@ -1,0 +1,16 @@
+{
+  "repository": "sysjust-xq/vscode-xs",
+  "commit": "c6101a57676990160de656171bd72638d5758102",
+  "publisher": "sysjust-xq",
+  "extension_version": "1.0.2",
+  "upstream_commit_date": "2023-04-26",
+  "reviewed_on": "2026-11-09",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2023 SysJust",
+  "marketplace_url": "https://marketplace.visualstudio.com/items?itemName=sysjust-xq.xs",
+  "files": [
+    {"local": "xs.tmLanguage.json", "upstream": "xs/syntaxes/xs.tmLanguage.json", "blob_sha": "c0decf414155fed56e082fe93ce14dfc0327ee2b"},
+    {"local": "language-configuration.json", "upstream": "xs/language-configuration.json", "blob_sha": "6138a164260cff120ab16dc65210fd9c4403273e"}
+  ],
+  "scope": "Pinned editor tokenization and auto-closing configuration; not a compiler or current XS API specification."
+}
